@@ -1,5 +1,8 @@
 package com.zwt.kepler_core.net.callback;
 
+import com.zwt.kepler_core.ui.loader.KeplerLoader;
+import com.zwt.kepler_core.ui.loader.LoaderStyle;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -13,12 +16,16 @@ public class RequestCallback implements Callback<String> {
     private final IError mIError;
     private final IFailure mIFailure;
     private final IRequest mIRequest;
+    private final LoaderStyle mLoaderStyle;
 
-    public RequestCallback(ISuccess ISuccess, IError IError, IFailure IFailure, IRequest IRequest) {
+    public RequestCallback(ISuccess ISuccess, IError IError,
+                           IFailure IFailure, IRequest IRequest,
+                           LoaderStyle loaderStyle) {
         mISuccess = ISuccess;
         mIError = IError;
         mIFailure = IFailure;
         mIRequest = IRequest;
+        mLoaderStyle = loaderStyle;
     }
 
     @Override
@@ -32,18 +39,25 @@ public class RequestCallback implements Callback<String> {
                 mIError.onError(response.message());
             }
         }
-        if (mIRequest != null) {
-            mIRequest.onRequestEnd();
-        }
+        requestStop();
     }
+
+
 
     @Override
     public void onFailure(Call<String> call, Throwable t) {
         if (mIFailure != null) {
             mIFailure.onFailure(t.getMessage());
         }
+        requestStop();
+    }
+
+    private void requestStop() {
         if (mIRequest != null) {
             mIRequest.onRequestEnd();
         }
+
+            KeplerLoader.stopLoading();
+
     }
 }

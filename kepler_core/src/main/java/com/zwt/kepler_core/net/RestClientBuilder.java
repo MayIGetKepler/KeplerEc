@@ -1,9 +1,12 @@
 package com.zwt.kepler_core.net;
 
+import android.content.Context;
+
 import com.zwt.kepler_core.net.callback.IError;
 import com.zwt.kepler_core.net.callback.IFailure;
 import com.zwt.kepler_core.net.callback.IRequest;
 import com.zwt.kepler_core.net.callback.ISuccess;
+import com.zwt.kepler_core.ui.loader.LoaderStyle;
 
 import java.util.WeakHashMap;
 
@@ -21,6 +24,8 @@ public class RestClientBuilder {
     private  IFailure mIFailure;
     private  IRequest mIRequest;
     private  RequestBody mBody;
+    private  LoaderStyle mLoaderStyle;
+    private Context mContext;
 
     public   RestClientBuilder url(String url){
         this.mUrl = url;
@@ -62,7 +67,17 @@ public class RestClientBuilder {
         return this;
     }
 
+    public RestClientBuilder loader(Context context, LoaderStyle style){
+        this.mLoaderStyle = style;
+        this.mContext = context;
+        return this;
+    }
+    public RestClientBuilder loader(Context context){
+        this.mContext = context;
+        return this;
+    }
+
     public RestClient build(){
-        return new RestClient(mUrl,mISuccess,mIError,mIFailure,mIRequest,mBody);
+        return new RestClient(mUrl,mISuccess,mIError,mIFailure,mIRequest,mBody,mLoaderStyle,mContext);
     }
 }

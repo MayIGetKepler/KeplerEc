@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.zwt.kepler_core.delegates.KeplerDelegate;
 import com.zwt.kepler_core.net.RestClient;
+import com.zwt.kepler_core.ui.loader.LoaderStyle;
 
 /**
  * @author ZWT
@@ -29,7 +30,8 @@ public class EntryDelegate extends KeplerDelegate {
     }
 
     private void testGet(){
-        RestClient.Builder().url("https://hao.360.cn/?a1004")
+        RestClient.Builder().url("https://stackoverflow.com/")
+                .loader(getContext(),LoaderStyle.BallClipRotatePulseIndicator)
                 .success(body -> mTextView.setText(body))
                 .error(errorMsg -> Toast.makeText(getContext(),errorMsg,Toast.LENGTH_SHORT).show())
                 .build()

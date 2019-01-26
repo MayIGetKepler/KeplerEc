@@ -16,4 +16,8 @@ public final class Kepler {
     public static WeakHashMap<String,Object> getConfigurations(){
         return Configurator.getInstance().getKeplerConfigs();
     }
+
+    public static Context getApplicationContext(){
+        return (Context) getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
+    }
 }
