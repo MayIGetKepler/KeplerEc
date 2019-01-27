@@ -3,9 +3,11 @@ package com.zwt.kepler_core.net;
 import com.zwt.kepler_core.application.ConfigType;
 import com.zwt.kepler_core.application.Kepler;
 
+import java.util.ArrayList;
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -13,7 +15,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 /**
  * @author ZWT
  */
- class RestCreator {
+ public class RestCreator {
 
     /**
      * 请求params单例，避免多并发请求时，生成大量params实例
@@ -54,7 +56,22 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
      */
     private static final class OKHttpHolder{
         private static final int TIMEOUT = 20;
-        private static final OkHttpClient OK_HTTP_CLIENT = new OkHttpClient.Builder()
+        private static final ArrayList<Interceptor> INTERCEPTORS = Kepler.getConfiguration(ConfigType.INTERCEPTOR);
+        private static final OkHttpClient.Builder BUILDER = new OkHttpClient.Builder();
+
+        /**
+         * 添加拦截器
+         * @return OkHttpClient.Builder
+         */
+        private static OkHttpClient.Builder addInterceptor(){
+            if (INTERCEPTORS != null && !INTERCEPTORS.isEmpty()){
+                for (Interceptor interceptor  : INTERCEPTORS) {
+                    BUILDER.addInterceptor(interceptor);
+                }
+            }
+            return BUILDER;
+        }
+        private static final OkHttpClient OK_HTTP_CLIENT = addInterceptor()
                 .connectTimeout(TIMEOUT,TimeUnit.SECONDS)
                 .build();
     }

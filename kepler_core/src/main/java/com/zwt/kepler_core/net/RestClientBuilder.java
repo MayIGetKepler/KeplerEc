@@ -8,6 +8,7 @@ import com.zwt.kepler_core.net.callback.IRequest;
 import com.zwt.kepler_core.net.callback.ISuccess;
 import com.zwt.kepler_core.ui.loader.LoaderStyle;
 
+import java.io.File;
 import java.util.WeakHashMap;
 
 import okhttp3.RequestBody;
@@ -26,6 +27,11 @@ public class RestClientBuilder {
     private  RequestBody mBody;
     private  LoaderStyle mLoaderStyle;
     private Context mContext;
+    //下载用  文件夹 扩展名 全名 有全名则不需要文件夹和扩展名
+    private  String DOWNLOAD_DIR;
+    private  String EXTENSION;
+    private  String FULLNAME;
+    private File FILE;
 
     public   RestClientBuilder url(String url){
         this.mUrl = url;
@@ -77,7 +83,34 @@ public class RestClientBuilder {
         return this;
     }
 
+    public RestClientBuilder extension(String extension){
+        this.EXTENSION = extension;
+        return this;
+    }
+    public RestClientBuilder dir(String dir){
+        this.DOWNLOAD_DIR = dir;
+        return this;
+    }
+    public RestClientBuilder fullname(String name){
+        this.FULLNAME  = name;
+        return this;
+    }
+
+    public RestClientBuilder file(File file){
+        this.FILE = file;
+        return this;
+    }
+
+    public RestClientBuilder file(String path){
+        this.FILE = new File(path);
+        return this;
+    }
+
     public RestClient build(){
-        return new RestClient(mUrl,mISuccess,mIError,mIFailure,mIRequest,mBody,mLoaderStyle,mContext);
+        return new RestClient(mUrl,mISuccess,mIError,
+                mIFailure,mIRequest,mBody,
+                mLoaderStyle,mContext,
+                DOWNLOAD_DIR,EXTENSION,FULLNAME,
+                FILE);
     }
 }

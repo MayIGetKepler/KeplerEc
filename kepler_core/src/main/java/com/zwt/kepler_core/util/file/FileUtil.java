@@ -1,4 +1,4 @@
-package com.flj.latte.util.file;
+package com.zwt.kepler_core.util.file;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -15,7 +15,8 @@ import android.provider.MediaStore;
 import android.webkit.MimeTypeMap;
 import android.widget.TextView;
 
-import com.flj.latte.app.Latte;
+
+import com.zwt.kepler_core.application.Kepler;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -250,12 +251,12 @@ public final class FileUtil {
     private static void refreshDCIM() {
         if (Build.VERSION.SDK_INT >= 19) {
             //兼容android4.4版本，只扫描存放照片的目录
-            MediaScannerConnection.scanFile(Latte.getApplicationContext(),
+            MediaScannerConnection.scanFile(Kepler.getApplicationContext(),
                     new String[]{Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath()},
                     null, null);
         } else {
             //扫描整个SD卡来更新系统图库，当文件很多时用户体验不佳，且不适合4.4以上版本
-            Latte.getApplicationContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" +
+            Kepler.getApplicationContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" +
                     Environment.getExternalStorageDirectory())));
         }
     }
@@ -264,7 +265,7 @@ public final class FileUtil {
      * 读取raw目录中的文件,并返回为字符串
      */
     public static String getRawFile(int id) {
-        final InputStream is = Latte.getApplicationContext().getResources().openRawResource(id);
+        final InputStream is = Kepler.getApplicationContext().getResources().openRawResource(id);
         final BufferedInputStream bis = new BufferedInputStream(is);
         final InputStreamReader isr = new InputStreamReader(bis);
         final BufferedReader br = new BufferedReader(isr);
@@ -291,7 +292,7 @@ public final class FileUtil {
 
 
     public static void setIconFont(String path, TextView textView) {
-        final Typeface typeface = Typeface.createFromAsset(Latte.getApplicationContext().getAssets(), path);
+        final Typeface typeface = Typeface.createFromAsset(Kepler.getApplicationContext().getAssets(), path);
         textView.setTypeface(typeface);
     }
 
@@ -304,7 +305,7 @@ public final class FileUtil {
         InputStreamReader isr = null;
         BufferedReader br = null;
         StringBuilder stringBuilder = null;
-        final AssetManager assetManager = Latte.getApplicationContext().getAssets();
+        final AssetManager assetManager = Kepler.getApplicationContext().getAssets();
         try {
             is = assetManager.open(name);
             bis = new BufferedInputStream(is);

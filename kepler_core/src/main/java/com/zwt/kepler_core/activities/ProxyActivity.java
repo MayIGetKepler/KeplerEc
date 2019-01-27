@@ -17,6 +17,7 @@ public abstract class ProxyActivity extends SupportActivity {
 
     public abstract KeplerDelegate setRootDelegate();
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

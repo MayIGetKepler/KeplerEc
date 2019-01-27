@@ -8,7 +8,7 @@ import android.view.WindowManager;
 
 import com.wang.avi.AVLoadingIndicatorView;
 import com.zwt.kepler_core.R;
-import com.zwt.kepler_core.util.DimenUtil;
+import com.zwt.kepler_core.util.dimen.DimenUtil;
 
 import java.util.ArrayList;
 

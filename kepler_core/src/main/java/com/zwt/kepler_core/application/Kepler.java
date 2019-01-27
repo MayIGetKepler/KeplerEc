@@ -13,8 +13,12 @@ public final class Kepler {
        return Configurator.getInstance();
     }
 
-    public static WeakHashMap<String,Object> getConfigurations(){
+    public static WeakHashMap<Object,Object> getConfigurations(){
         return Configurator.getInstance().getKeplerConfigs();
+    }
+
+    public static <T> T getConfiguration(Object key) {
+        return Configurator.getInstance().getConfiguration(key);
     }
 
     public static Context getApplicationContext(){

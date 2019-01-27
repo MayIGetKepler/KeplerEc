@@ -30,7 +30,7 @@ public class EntryDelegate extends KeplerDelegate {
     }
 
     private void testGet(){
-        RestClient.Builder().url("https://stackoverflow.com/")
+        RestClient.Builder().url("/test")
                 .loader(getContext(),LoaderStyle.BallClipRotatePulseIndicator)
                 .success(body -> mTextView.setText(body))
                 .error(errorMsg -> Toast.makeText(getContext(),errorMsg,Toast.LENGTH_SHORT).show())
