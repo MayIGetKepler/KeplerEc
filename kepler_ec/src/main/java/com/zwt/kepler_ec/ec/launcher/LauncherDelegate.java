@@ -48,6 +48,7 @@ public class LauncherDelegate extends KeplerDelegate implements ITimerListener {
     }
 
     private void initTimer() {
+
         mTimer = new Timer();
         BaseTimerTask task = new BaseTimerTask(this);
         mTimer.schedule(task, 0, 1000);
