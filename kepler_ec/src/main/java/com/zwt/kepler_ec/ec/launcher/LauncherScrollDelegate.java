@@ -1,12 +1,17 @@
 package com.zwt.kepler_ec.ec.launcher;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.zwt.kepler_core.application.AccountManager;
+import com.zwt.kepler_core.application.IUserChecker;
 import com.zwt.kepler_core.delegates.KeplerDelegate;
+import com.zwt.kepler_core.ui.launcher.ILauncherListener;
 import com.zwt.kepler_core.ui.launcher.LauncherHolderCreator;
+import com.zwt.kepler_core.ui.launcher.OnLauncherFinishedTag;
 import com.zwt.kepler_core.ui.launcher.ScrollLauncherTag;
 import com.zwt.kepler_core.util.storage.KeplerPreference;
 import com.zwt.kepler_ec.ec.R;
@@ -33,6 +38,16 @@ public class LauncherScrollDelegate extends KeplerDelegate implements OnItemClic
                 .setCanLoop(false);
     }
 
+    private ILauncherListener mILauncherListener;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ILauncherListener){
+            mILauncherListener = (ILauncherListener) activity;
+        }
+    }
+
     @Override
     public Object setLayout() {
         mBanner = new ConvenientBanner<>(getContext());
@@ -49,6 +64,17 @@ public class LauncherScrollDelegate extends KeplerDelegate implements OnItemClic
         if (position == INTEGERS.size() - 1){
             KeplerPreference.setAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name(),true);
             //检查用户是否已经登录
+            AccountManager.checkAccount(new IUserChecker() {
+                @Override
+                public void onSignIn() {
+                    mILauncherListener.onLauncherFinished(OnLauncherFinishedTag.SIGNED);
+                }
+
+                @Override
+                public void onNotSignIn() {
+                    mILauncherListener.onLauncherFinished(OnLauncherFinishedTag.NOT_SIGNED);
+                }
+            });
         }
     }
 }

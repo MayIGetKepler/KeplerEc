@@ -2,8 +2,10 @@ package com.zwt.keplerec;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
 import com.zwt.kepler_core.application.Kepler;
 import com.zwt.kepler_core.net.interceptor.DebugInterceptor;
+import com.zwt.kepler_ec.ec.database.DatabaseManager;
 
 /**
  * @author ZWT
@@ -16,5 +18,7 @@ public class MyApplication extends Application {
                 .withApi("http://127.0.0.1/")
                 .withInterceptor(new DebugInterceptor("/test",R.raw.debug))
                 .configure();
+        DatabaseManager.getInstance().init(this);
+        Stetho.initializeWithDefaults(this);
     }
 }

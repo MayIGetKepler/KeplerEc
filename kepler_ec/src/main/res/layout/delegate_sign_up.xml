@@ -128,9 +128,11 @@
                 android:padding="15dp"
                 android:text="注册"
                 android:textSize="15sp"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText"
+                android:textColor="@android:color/white"/>
 
             <android.support.v7.widget.AppCompatTextView
+                android:clickable="true"
                 android:layout_marginBottom="30dp"
                 android:id="@+id/tv_link_sign_in"
                 android:layout_width="match_parent"
@@ -138,7 +140,8 @@
                 android:gravity="center"
                 android:text="已有账号，去登录"
                 android:textSize="13sp"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText"
+                android:focusable="true" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

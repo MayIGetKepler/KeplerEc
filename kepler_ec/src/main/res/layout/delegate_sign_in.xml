@@ -16,7 +16,8 @@
             android:gravity="center"
             android:text="登录"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.AppCompatImageView
@@ -34,6 +35,7 @@
         android:padding="10dp">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/edit_sign_in_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="邮箱"
@@ -48,6 +50,7 @@
         android:padding="10dp">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/edit_sign_in_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="密码"
@@ -58,6 +61,7 @@
 
 
     <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -69,14 +73,24 @@
         android:padding="15dp"
         android:text="登录"
         android:textSize="15sp"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText"
+        android:textColor="@android:color/white"/>
 
     <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_link_sign_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="还没有账号?去注册"
         android:textSize="13sp"
         tools:ignore="HardcodedText" />
+    
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btn_sign_we_chat"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@mipmap/ic_we_chat"/>
 
 </LinearLayout>
