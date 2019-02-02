@@ -50,4 +50,5 @@ dependencies {
     api 'com.bigkoo:convenientbanner:2.0.5'
     //greenDao
     api 'org.greenrobot:greendao:3.2.2'
+
 }

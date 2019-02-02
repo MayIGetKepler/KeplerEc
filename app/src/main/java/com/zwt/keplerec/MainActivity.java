@@ -3,17 +3,20 @@ package com.zwt.keplerec;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.zwt.kepler_core.activities.ProxyActivity;
 import com.zwt.kepler_core.delegates.KeplerDelegate;
 import com.zwt.kepler_core.ui.launcher.ILauncherListener;
 import com.zwt.kepler_core.ui.launcher.OnLauncherFinishedTag;
+import com.zwt.kepler_ec.ec.main.EcBottomDelegate;
 import com.zwt.kepler_ec.ec.sign.ISignListener;
 import com.zwt.kepler_ec.ec.sign.SignInDelegate;
 
 public class MainActivity extends ProxyActivity implements
-        ISignListener,ILauncherListener {
+        ISignListener,ILauncherListener{
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,7 +33,7 @@ public class MainActivity extends ProxyActivity implements
 //        return KeplerPreference.getAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name())?
 //                new LauncherDelegate()
 //                :new LauncherScrollDelegate();
-        return new SignInDelegate();
+        return new EcBottomDelegate();
     }
 
     @Override
@@ -59,5 +62,13 @@ public class MainActivity extends ProxyActivity implements
             default:
                 break;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            Log.e("KEYCODE_BACK", "===="  );
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -15,7 +15,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Kepler.init(this)
-                .withApi("http://127.0.0.1/")
+                .withApi("http://192.168.1.109:8080/KeplerEc/")
                 .withInterceptor(new DebugInterceptor("/test",R.raw.debug))
                 .configure();
         DatabaseManager.getInstance().init(this);
