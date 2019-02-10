@@ -15,6 +15,8 @@ import com.zwt.kepler_ec.ec.main.EcBottomDelegate;
 import com.zwt.kepler_ec.ec.sign.ISignListener;
 import com.zwt.kepler_ec.ec.sign.SignInDelegate;
 
+import qiu.niorgai.StatusBarCompat;
+
 public class MainActivity extends ProxyActivity implements
         ISignListener,ILauncherListener{
 
@@ -25,6 +27,7 @@ public class MainActivity extends ProxyActivity implements
         if ( actionBar != null){
             actionBar.hide();
         }
+        StatusBarCompat.translucentStatusBar(this,true);
 
     }
 

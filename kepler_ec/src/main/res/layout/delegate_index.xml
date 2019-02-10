@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cdl_index"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl_index"
@@ -19,6 +20,7 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.v7.widget.Toolbar
+        app:layout_behavior="com.zwt.kepler_ec.ec.main.index.TranslucentBehavior"
         android:id="@+id/tb_index"
         android:layout_width="match_parent"
         android:layout_height="56dp">
