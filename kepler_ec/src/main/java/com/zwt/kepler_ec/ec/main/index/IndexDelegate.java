@@ -3,6 +3,7 @@ package com.zwt.kepler_ec.ec.main.index;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.zwt.kepler_core.delegates.bottom.BottomItemDelegate;
+import com.zwt.kepler_core.ui.recycler.divider.BaseDecoration;
 import com.zwt.kepler_core.ui.refresh.RefreshHandler;
 import com.zwt.kepler_ec.ec.R;
 
@@ -63,6 +65,7 @@ public class IndexDelegate extends BottomItemDelegate {
     private void initRecyclerView(){
         final GridLayoutManager manager = new GridLayoutManager(getContext(),4);
         mRvIndex.setLayoutManager(manager);
+        mRvIndex.addItemDecoration(BaseDecoration.create(ContextCompat.getColor(getContext(),R.color.app_background),5));
     }
 
     @Override
