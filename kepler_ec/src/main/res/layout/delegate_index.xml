@@ -23,7 +23,7 @@
         app:layout_behavior="com.zwt.kepler_ec.ec.main.index.TranslucentBehavior"
         android:id="@+id/tb_index"
         android:layout_width="match_parent"
-        android:layout_height="56dp">
+        android:layout_height="80dp">
 
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -39,14 +39,16 @@
                 app:srcCompat="@drawable/ic_scan" />
 
             <android.support.v7.widget.AppCompatEditText
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_10"
+                android:background="@android:color/white"
                 android:id="@+id/et_search"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_weight="4"
                 android:gravity="center_vertical"
                 android:hint="搜索"
-                android:padding="10dp"
                 android:textSize="20sp"
                 tools:ignore="HardcodedText" />
 

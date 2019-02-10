@@ -16,6 +16,7 @@ import com.zwt.kepler_core.delegates.bottom.BottomItemDelegate;
 import com.zwt.kepler_core.ui.recycler.divider.BaseDecoration;
 import com.zwt.kepler_core.ui.refresh.RefreshHandler;
 import com.zwt.kepler_ec.ec.R;
+import com.zwt.kepler_ec.ec.main.EcBottomDelegate;
 
 /**
  * @author ZWT
@@ -65,7 +66,10 @@ public class IndexDelegate extends BottomItemDelegate {
     private void initRecyclerView(){
         final GridLayoutManager manager = new GridLayoutManager(getContext(),4);
         mRvIndex.setLayoutManager(manager);
-        mRvIndex.addItemDecoration(BaseDecoration.create(ContextCompat.getColor(getContext(),R.color.app_background),5));
+        mRvIndex.addItemDecoration(
+                BaseDecoration.create(ContextCompat.getColor(getContext(),R.color.app_background),5));
+        EcBottomDelegate ecBottomDelegate = getParentDelegate();
+        mRvIndex.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
     }
 
     @Override
