@@ -2,21 +2,38 @@ package com.zwt.kepler_core.ui.refresh;
 
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.widget.Toast;
+import android.support.v7.widget.RecyclerView;
 
-import com.zwt.kepler_core.application.Kepler;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zwt.kepler_core.net.RestClient;
+import com.zwt.kepler_core.ui.recycler.DataConverter;
+import com.zwt.kepler_core.ui.recycler.MultipleRecyclerViewAdapter;
 
 /**
  * @author ZWT
  */
-public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener {
+public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
 
     private final SwipeRefreshLayout REFRESH_LAYOUT;
+    private final PagingBean BEAN;
+    private final RecyclerView RECYCLERVIEW;
+    private MultipleRecyclerViewAdapter mAdapter = null;
+    private DataConverter CONVERTER;
 
-    public RefreshHandler(@NonNull SwipeRefreshLayout REFRESH_LAYOUT) {
-        this.REFRESH_LAYOUT = REFRESH_LAYOUT;
+    private RefreshHandler(@NonNull SwipeRefreshLayout refreshLayout,
+                           RecyclerView recyclerView,DataConverter converter,PagingBean bean) {
+        this.REFRESH_LAYOUT = refreshLayout;
+        this.RECYCLERVIEW = recyclerView;
+        this.BEAN = bean;
+        this.CONVERTER = converter;
         REFRESH_LAYOUT.setOnRefreshListener(this);
+    }
+
+    public static RefreshHandler create(@NonNull SwipeRefreshLayout refreshLayout,
+                                        RecyclerView recyclerView, DataConverter converter){
+        return new RefreshHandler(refreshLayout,recyclerView,converter,new PagingBean());
     }
 
     @Override
@@ -36,15 +53,26 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener {
     }
 
     public void firstPage(String url) {
-        REFRESH_LAYOUT.setOnRefreshListener(this);
+        BEAN.setDelayed(1000);
         RestClient
                 .Builder()
                 .url(url)
                 .success(body -> {
-                    Toast.makeText(Kepler.getApplicationContext(),body,Toast.LENGTH_SHORT).show();
-                    REFRESH_LAYOUT.setRefreshing(false);
+                    final JSONObject object = JSON.parseObject(body);
+                    BEAN.setTotal(object.getInteger("total"));
+                    BEAN.setPageSize(object.getInteger("page_size"));
+                    //adapter
+                    mAdapter = MultipleRecyclerViewAdapter.create(CONVERTER.setJsonData(body));
+                    mAdapter.setOnLoadMoreListener(this,RECYCLERVIEW);
+                    RECYCLERVIEW.setAdapter(mAdapter);
+                    BEAN.addIndex();
                 })
                 .build()
                 .get();
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+
     }
 }

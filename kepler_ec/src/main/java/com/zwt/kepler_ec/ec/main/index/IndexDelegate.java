@@ -6,19 +6,14 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 import com.zwt.kepler_core.delegates.bottom.BottomItemDelegate;
-import com.zwt.kepler_core.net.RestClient;
-import com.zwt.kepler_core.ui.recycler.MultipleFields;
-import com.zwt.kepler_core.ui.recycler.MultipleItemEntity;
 import com.zwt.kepler_core.ui.refresh.RefreshHandler;
 import com.zwt.kepler_ec.ec.R;
-
-import java.util.ArrayList;
 
 /**
  * @author ZWT
@@ -51,8 +46,8 @@ public class IndexDelegate extends BottomItemDelegate {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         initRefresh();
-
-//        mRefreshHandler.firstPage("index");
+        initRecyclerView();
+        mRefreshHandler.firstPage("index");
     }
 
     private void initRefresh() {
@@ -65,6 +60,11 @@ public class IndexDelegate extends BottomItemDelegate {
         mSrlIndex.setProgressViewOffset(true,80,250);
     }
 
+    private void initRecyclerView(){
+        final GridLayoutManager manager = new GridLayoutManager(getContext(),4);
+        mRvIndex.setLayoutManager(manager);
+    }
+
     @Override
     public Object setLayout() {
         return R.layout.delegate_index;
@@ -73,17 +73,7 @@ public class IndexDelegate extends BottomItemDelegate {
     @Override
     protected void onBindView(Bundle savedInstanceState, View rootView) {
         findViews(rootView);
-        mRefreshHandler = new RefreshHandler(mSrlIndex);
-        RestClient.Builder()
-                .url("index")
-                .success(body -> {
-                    IndexDataConverter converter = new IndexDataConverter();
-                    converter.setJsonData(body);
-                    ArrayList<MultipleItemEntity> entities = converter.convert();
-                    Toast.makeText(getContext(),entities.get(1).getField(MultipleFields.IMAGE_URL),Toast.LENGTH_SHORT).show();
-                })
-                .build()
-        .get();
+        mRefreshHandler =  RefreshHandler.create(mSrlIndex,mRvIndex,new IndexDataConverter());
     }
 
 
