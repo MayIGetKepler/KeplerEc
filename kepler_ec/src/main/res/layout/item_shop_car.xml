@@ -1,6 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginBottom="5dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/dp_10"
+    android:paddingRight="@dimen/dp_10">
 
-</LinearLayout>
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_shop_car_item_check"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/ic_uncheck" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_shop_car_item_avatar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/app_main" />
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_10">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_shop_car_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:padding="2dp"
+            android:text="商品标题"
+            android:textSize="18sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:textColor="@android:color/darker_gray"
+            android:id="@+id/tv_shop_car_item_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:padding="2dp"
+            android:text="商品描述"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_shop_car_item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:padding="2dp"
+            android:text="2.0"
+            android:textColor="@color/app_main"
+            android:textSize="16sp"
+            android:typeface="monospace"
+            tools:ignore="HardcodedText" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="3dp"
+        tools:ignore="RtlHardcoded,RtlSymmetry">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_shop_car_item_minus"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/ic_minus" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_shop_car_item_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="1"
+            android:textSize="17sp"
+            tools:ignore="HardcodedText" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_shop_car_item_plus"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/ic_plus" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+
+</android.support.v7.widget.LinearLayoutCompat>

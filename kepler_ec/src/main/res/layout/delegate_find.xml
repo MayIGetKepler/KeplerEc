@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:paddingTop="6dp"
-            android:text="分类"
+            android:text="发现"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             tools:ignore="HardcodedText" />
