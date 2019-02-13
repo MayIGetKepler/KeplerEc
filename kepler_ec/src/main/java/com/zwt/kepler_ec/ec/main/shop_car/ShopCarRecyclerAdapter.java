@@ -37,8 +37,16 @@ public class ShopCarRecyclerAdapter extends MultipleRecyclerViewAdapter {
         mIsSelectedAll = selectedAll;
     }
 
-    public void setISelectAll(ISelectAll ISelectAll) {
+    void setISelectAll(ISelectAll ISelectAll) {
         mISelectAll = ISelectAll;
+    }
+
+    void resetPosition(int beginPosition){
+        List<MultipleItemEntity> data = getData();
+        final int size = data.size();
+        for (int i = beginPosition; i < size; i++) {
+            data.get(i).setField(ShopCarItemFields.POSITION,i);
+        }
     }
 
     void selectAll(boolean selectedAll) {

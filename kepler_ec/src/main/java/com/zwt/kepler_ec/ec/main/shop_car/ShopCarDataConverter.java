@@ -38,6 +38,7 @@ public class ShopCarDataConverter extends DataConverter {
                     .setField(ShopCarItemFields.TITLE, title)
                     .setField(ShopCarItemFields.PRICE, price)
                     .setField(ShopCarItemFields.DESC, desc)
+                    .setField(ShopCarItemFields.POSITION,i)
                     .build();
 
             ENTITIES.add(entity);

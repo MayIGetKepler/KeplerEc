@@ -19,6 +19,8 @@
             android:paddingRight="@dimen/dp_10">
 
             <TextView
+                android:clickable="true"
+                android:focusable="true"
                 android:id="@+id/tv_top_shop_car_clear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,6 +42,8 @@
                 tools:ignore="HardcodedText" />
 
             <TextView
+                android:clickable="true"
+                android:focusable="true"
                 android:id="@+id/tv_top_shop_car_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -7,5 +7,6 @@ public enum ShopCarItemFields {
     DESC,
     TITLE,
     COUNT,
-    PRICE
+    PRICE,
+    POSITION
 }
