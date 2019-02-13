@@ -56,6 +56,7 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener, Bas
         BEAN.setDelayed(1000);
         RestClient
                 .Builder()
+                .loader(REFRESH_LAYOUT.getContext())
                 .url(url)
                 .success(body -> {
                     final JSONObject object = JSON.parseObject(body);

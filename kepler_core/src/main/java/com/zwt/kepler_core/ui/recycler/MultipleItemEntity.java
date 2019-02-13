@@ -30,6 +30,10 @@ public class MultipleItemEntity implements MultiItemEntity {
         return (int) FIELDS_REFERENCE.get().get(MultipleFields.ITEM_TYPE);
     }
 
+    public final void setField(Object key,Object value){
+        FIELDS_REFERENCE.get().put(key,value);
+    }
+
     @SuppressWarnings("unchecked")
     public final <T> T getField(Object key){
         return (T) FIELDS_REFERENCE.get().get(key);

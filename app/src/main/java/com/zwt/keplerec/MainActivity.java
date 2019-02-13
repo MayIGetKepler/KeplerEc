@@ -3,8 +3,6 @@ package com.zwt.keplerec;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.zwt.kepler_core.activities.ProxyActivity;
@@ -67,11 +65,4 @@ public class MainActivity extends ProxyActivity implements
         }
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
-            Log.e("KEYCODE_BACK", "===="  );
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 }
