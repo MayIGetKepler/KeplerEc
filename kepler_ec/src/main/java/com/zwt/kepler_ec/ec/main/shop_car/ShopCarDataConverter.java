@@ -33,7 +33,7 @@ public class ShopCarDataConverter extends DataConverter {
                     .setField(MultipleFields.ID, id)
                     .setField(MultipleFields.IMAGE_URL, thumb)
                     //是否已经选中
-                    .setField(MultipleFields.TAG,true)
+                    .setField(MultipleFields.TAG,false)
                     .setField(ShopCarItemFields.COUNT, count)
                     .setField(ShopCarItemFields.TITLE, title)
                     .setField(ShopCarItemFields.PRICE, price)

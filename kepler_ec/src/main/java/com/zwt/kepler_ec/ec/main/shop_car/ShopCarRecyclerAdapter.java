@@ -19,15 +19,41 @@ import java.util.List;
  */
 public class ShopCarRecyclerAdapter extends MultipleRecyclerViewAdapter {
 
+    private boolean mIsSelectedAll = false;
+
     private final RequestOptions mRequestOption = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL)
             .fitCenter();
 
+    private  ISelectAll mISelectAll = null;
 
-    protected ShopCarRecyclerAdapter(List<MultipleItemEntity> data) {
+
+    ShopCarRecyclerAdapter(List<MultipleItemEntity> data) {
         super(data);
         //添加itemType
         addItemType(ShopCarItemType.SHOP_CAR_ITEM, R.layout.item_shop_car);
     }
+
+    void setSelectedAll(boolean selectedAll) {
+        mIsSelectedAll = selectedAll;
+    }
+
+    public void setISelectAll(ISelectAll ISelectAll) {
+        mISelectAll = ISelectAll;
+    }
+
+    void selectAll(boolean selectedAll) {
+        final List<MultipleItemEntity> entities = getData();
+        final int size = entities.size();
+        for (int i = 0; i < size; i++) {
+            MultipleItemEntity entity = entities.get(i);
+            final boolean isSelected = entity.getField(MultipleFields.TAG);
+            if (isSelected != selectedAll) {
+                entity.setField(MultipleFields.TAG, selectedAll);
+                notifyItemChanged(i);
+            }
+        }
+    }
+
 
     @Override
     protected void convert(MultipleViewHolder holder, MultipleItemEntity item) {
@@ -39,8 +65,8 @@ public class ShopCarRecyclerAdapter extends MultipleRecyclerViewAdapter {
                 final int count = item.getField(ShopCarItemFields.COUNT);
                 final String desc = item.getField(ShopCarItemFields.DESC);
                 final double price = item.getField(ShopCarItemFields.PRICE);
-                final String thumb =item.getField(MultipleFields.IMAGE_URL);
-                final boolean isChecked =item.getField(MultipleFields.TAG);
+                final String thumb = item.getField(MultipleFields.IMAGE_URL);
+
                 //取出view
                 final AppCompatTextView tvTitle = holder.getView(R.id.tv_shop_car_item_title);
                 final AppCompatTextView tvCount = holder.getView(R.id.tv_shop_car_item_count);
@@ -49,8 +75,8 @@ public class ShopCarRecyclerAdapter extends MultipleRecyclerViewAdapter {
                 final AppCompatImageView ivAvatar = holder.getView(R.id.iv_shop_car_item_avatar);
                 final AppCompatImageView ivCheck = holder.getView(R.id.iv_shop_car_item_check);
                 final AppCompatImageView ivMinus = holder.getView(R.id.iv_shop_car_item_minus);
-                final AppCompatImageView ivPlus =  holder.getView(R.id.iv_shop_car_item_plus);
-                //设置数据
+                final AppCompatImageView ivPlus = holder.getView(R.id.iv_shop_car_item_plus);
+                //绑定数据
                 tvTitle.setText(title);
                 tvCount.setText(String.valueOf(count));
                 tvDesc.setText(desc);
@@ -60,16 +86,52 @@ public class ShopCarRecyclerAdapter extends MultipleRecyclerViewAdapter {
                         .load(thumb)
                         .into(ivAvatar);
 
-                if (isChecked){
+                //渲染check按钮
+                item.setField(MultipleFields.TAG, mIsSelectedAll);
+                final boolean isChecked = item.getField(MultipleFields.TAG);
+                if (isChecked) {
                     ivCheck.setImageResource(R.drawable.ic_checked);
-                }else {
+
+                } else {
                     ivCheck.setImageResource(R.drawable.ic_uncheck);
+
                 }
+
+                ivCheck.setOnClickListener(view -> {
+                    if (mISelectAll == null){
+                        throw new NullPointerException("ISelectAll is Null !");
+                    }
+                    final boolean currentSelected = item.getField(MultipleFields.TAG);
+                    if (currentSelected) {
+                        ivCheck.setImageResource(R.drawable.ic_uncheck);
+                        item.setField(MultipleFields.TAG, false);
+                        //取消全选
+                        mISelectAll.unSelected();
+                    } else {
+                        ivCheck.setImageResource(R.drawable.ic_checked);
+                        item.setField(MultipleFields.TAG, true);
+                        //判断是否需要全选
+                        if (toSelectAll()){
+                            mISelectAll.allSelected();
+                        }
+                    }
+                });
 
                 break;
 
             default:
                 break;
         }
+    }
+
+    private boolean toSelectAll() {
+        final List<MultipleItemEntity> entities = getData();
+        for (MultipleItemEntity entity : entities) {
+            final boolean isChecked = entity.getField(MultipleFields.TAG);
+        	if (!isChecked){
+        	    return false;
+            }
+        }
+        return true;
     }
 }
