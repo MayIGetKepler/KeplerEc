@@ -35,6 +35,7 @@
             android:id="@+id/tv_shop_car_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:maxLines="1"
             android:padding="2dp"
             android:text="商品标题"
@@ -42,13 +43,14 @@
             tools:ignore="HardcodedText" />
 
         <TextView
-            android:textColor="@android:color/darker_gray"
             android:id="@+id/tv_shop_car_item_des"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:maxLines="1"
             android:padding="2dp"
             android:text="商品描述"
+            android:textColor="@android:color/darker_gray"
             android:textSize="16sp"
             tools:ignore="HardcodedText" />
 

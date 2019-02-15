@@ -73,9 +73,9 @@ public class ShopCarRecyclerAdapter extends MultipleRecyclerViewAdapter {
         restTotalPrice();
     }
 
-    private void restTotalPrice(){
+    private void restTotalPrice() {
         mTotalPrice = 0.00;
-        if (mIItemSelected != null){
+        if (mIItemSelected != null) {
             mIItemSelected.totalPrice(mTotalPrice);
         }
     }
@@ -105,7 +105,6 @@ public class ShopCarRecyclerAdapter extends MultipleRecyclerViewAdapter {
             }
 
         }
-
 
 
     }
@@ -153,8 +152,10 @@ public class ShopCarRecyclerAdapter extends MultipleRecyclerViewAdapter {
                     ivCheck.setImageResource(R.drawable.ic_uncheck);
 
                 }
-
+                //check按钮点击事件
                 ivCheck.setOnClickListener(view -> {
+                     double pri = item.getField(ShopCarItemFields.PRICE);
+                     int cou = item.getField(ShopCarItemFields.COUNT);
                     if (mISelectAll == null) {
                         throw new NullPointerException("ISelectAll is Null !");
                     }
@@ -167,7 +168,7 @@ public class ShopCarRecyclerAdapter extends MultipleRecyclerViewAdapter {
 
                         //总价减去此item总价
                         if (mIItemSelected != null) {
-                            mTotalPrice -= (price * count);
+                            mTotalPrice -= (pri * cou);
                             mIItemSelected.totalPrice(mTotalPrice);
                         }
 
@@ -182,12 +183,39 @@ public class ShopCarRecyclerAdapter extends MultipleRecyclerViewAdapter {
 
                         //总价加上此item总价
                         if (mIItemSelected != null) {
-                            mTotalPrice += (price * count);
+                            mTotalPrice += (pri * cou);
                             mIItemSelected.totalPrice(mTotalPrice);
                         }
 
                     }
                 });
+
+                //减按钮点击事件
+                ivMinus.setOnClickListener(view -> {
+                    int cou = item.getField(ShopCarItemFields.COUNT);
+                    if (cou > 1) {
+                        cou--;
+                        item.setField(ShopCarItemFields.COUNT, cou);
+                        tvCount.setText(String.valueOf(cou));
+                        if (mIItemSelected != null && (boolean) item.getField(MultipleFields.TAG)) {
+                            mTotalPrice -= price;
+                            mIItemSelected.totalPrice(mTotalPrice);
+                        }
+                    }
+                });
+                //加按钮点击事件
+                ivPlus.setOnClickListener(view -> {
+                    int cou = item.getField(ShopCarItemFields.COUNT);
+                    cou++;
+                    item.setField(ShopCarItemFields.COUNT, cou);
+                    tvCount.setText(String.valueOf(cou));
+                    if (mIItemSelected != null&& (boolean) item.getField(MultipleFields.TAG)) {
+                        mTotalPrice += price;
+                        mIItemSelected.totalPrice(mTotalPrice);
+                    }
+
+                });
+
 
                 break;
 

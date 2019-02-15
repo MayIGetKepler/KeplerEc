@@ -42,4 +42,5 @@ public class MultipleItemEntity implements MultiItemEntity {
     public final LinkedHashMap<?,?> getFields(){
         return FIELDS_REFERENCE.get();
     }
+
 }

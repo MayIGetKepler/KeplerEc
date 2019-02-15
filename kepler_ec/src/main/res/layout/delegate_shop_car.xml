@@ -63,7 +63,7 @@
         android:layout_height="0dp"
         android:layout_weight="8"
         tools:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/recycler_view_item"
+        tools:listitem="@layout/item_shop_car"
         tools:spanCount="5" />
 
     <android.support.v7.widget.ViewStubCompat
