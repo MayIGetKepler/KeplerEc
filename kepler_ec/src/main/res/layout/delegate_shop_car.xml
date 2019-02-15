@@ -62,15 +62,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="8"
-        tools:layoutManager="GridLayoutManager"
+        tools:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/recycler_view_item"
         tools:spanCount="5" />
 
     <android.support.v7.widget.ViewStubCompat
+        android:layout="@layout/stub_shop_car_no_item"
+        android:id="@+id/vs_shop_car_no_item"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_weight="1"
+        android:layout_weight="8"
         android:background="@android:color/white"
         android:minHeight="50dp"
         android:orientation="horizontal" />
@@ -134,10 +136,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center|left"
-                android:text="￥0.01"
                 android:textColor="@color/app_main"
                 android:textSize="20sp"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText,RtlHardcoded" />
 
         </android.support.v7.widget.LinearLayoutCompat>
 

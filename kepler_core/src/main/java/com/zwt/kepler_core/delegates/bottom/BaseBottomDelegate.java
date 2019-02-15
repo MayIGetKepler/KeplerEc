@@ -117,4 +117,16 @@ public abstract class BaseBottomDelegate extends KeplerDelegate implements View.
             itemTitle.setTextColor(Color.GRAY);
         }
     }
+
+    public void changeItem(int index){
+        restColor();
+        final RelativeLayout item = (RelativeLayout) mBottomBar.getChildAt(index);
+        final AppCompatImageView itemIcon = (AppCompatImageView) item.getChildAt(0);
+        final AppCompatTextView itemTitle = (AppCompatTextView) item.getChildAt(1);
+        itemTitle.setTextColor(mClickedColor);
+        itemIcon.setImageResource(TAB_BEANS.get(index).getActiveIconId());
+        showHideFragment(ITEM_DELEGATES.get(index), ITEM_DELEGATES.get(mCurrentDelegate));
+
+        mCurrentDelegate = index;
+    }
 }
